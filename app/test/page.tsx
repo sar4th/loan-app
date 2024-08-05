@@ -1,10 +1,13 @@
 import prisma from "@/lib/db";
-
 const DataFechingTest = async () => {
   const user = await prisma.user.findMany();
-  console.log(user, "sfsfh");
-
-  return <div>page</div>;
+  return (
+    <div>
+      {user.map(function (user) {
+        return <div>{user.name}</div>;
+      })}
+    </div>
+  );
 };
 
 export default DataFechingTest;
