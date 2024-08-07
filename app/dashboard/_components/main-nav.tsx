@@ -15,7 +15,7 @@ export function MainNav({
         href="/examples/dashboard"
         className="text-sm font-medium transition-colors hover:text-primary"
       >
-        Overview
+        {/* Overview */}
       </Link>
       {/* <Link
         href="/examples/dashboard"
