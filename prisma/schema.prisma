@@ -23,9 +23,9 @@ model PoolDetails {
   totalWinners    String?
   activeUsers     String?
 }
-model Winners{
-  userId            Int     @id @default(autoincrement())
-  winDate           DateTime
-
-
+model Winners {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  winDate   DateTime
+  userName  String
 }

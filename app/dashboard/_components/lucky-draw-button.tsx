@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { getAllUsers } from "@/lib/actions/selectRandomWinner";
+import { getAllUsers, updatedWinner } from "@/lib/actions/selectRandomWinner";
 import { useState } from "react";
 import {
   AlertDialog,
@@ -23,6 +23,9 @@ export function LuckyDrawButton() {
     try {
       const allUsers = await getAllUsers();
       const randomWinner = getRandomWinner(allUsers);
+      console.log(randomWinner, "randomWinner");
+
+      await updatedWinner(randomWinner);
       setWinner(randomWinner);
     } catch (error) {
       console.error("Error selecting winner:", error);

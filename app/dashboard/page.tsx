@@ -18,11 +18,12 @@ import { UserNav } from "./_components/user-nav";
 import { CalendarDateRangePicker } from "./_components/date-range-picker";
 import { Overview } from "./_components/overview";
 import { Button } from "@/components/ui/button";
-import { RecentSales } from "./_components/recent-sales";
+
 import EditPoolDetails from "./_components/edit-pool-details";
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { LuckyDrawButton } from "./_components/lucky-draw-button";
+import { RecentWinners } from "./_components/recent-winners";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -77,15 +78,6 @@ export default async function DashboardPage() {
           <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              {/* <TabsTrigger value="analytics" disabled>
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value="reports" disabled>
-                Reports
-              </TabsTrigger> */}
-              {/* <TabsTrigger value="notifications" disabled>
-                Notifications
-              </TabsTrigger> */}
             </TabsList>
             <EditPoolDetails dashboardData={dashboardData} />
 
@@ -194,9 +186,7 @@ export default async function DashboardPage() {
               </div>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4">
-                  <CardHeader>
-                    {/* <CardTitle>Overview</CardTitle> */}
-                  </CardHeader>
+                  <CardHeader></CardHeader>
                   <CardContent className="pl-2">
                     <LuckyDrawButton />
                   </CardContent>
@@ -204,12 +194,9 @@ export default async function DashboardPage() {
                 <Card className="col-span-3">
                   <CardHeader>
                     <CardTitle>Recent Winners</CardTitle>
-                    <CardDescription>
-                      {/* You made 265 sales this month. */}
-                    </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <RecentSales />
+                    <RecentWinners />
                   </CardContent>
                 </Card>
               </div>
