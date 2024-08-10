@@ -44,12 +44,6 @@ const EditPoolDetails = ({ dashboardData }: { dashboardData: any }) => {
       .refine((val) => !val || val.length > 0, {
         message: "Monthly payment is required if provided",
       }),
-    totalWinners: z
-      .string()
-      .optional()
-      .refine((val) => !val || val.length > 0, {
-        message: "Total winners is required if provided",
-      }),
     activeUsers: z
       .string()
       .optional()
@@ -122,20 +116,7 @@ const EditPoolDetails = ({ dashboardData }: { dashboardData: any }) => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="totalWinners"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Total winners</FormLabel>
-                  <FormControl>
-                    <Input placeholder="amount" {...field} />
-                  </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="activeUsers"

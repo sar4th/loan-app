@@ -84,7 +84,25 @@ export default async function DashboardPage() {
       return null;
     }
   };
+   // Fetch the total count of winners
+   const fetchTotalWinners = async () => {
+    try {
+      const totalWinners = await prisma.user.count({
+        where: {
+          iswinned: true,
+        },
+      });
+      return totalWinners;
+    } catch (error) {
+      console.error("Error fetching total winners count:", error);
+      return 0;
+    }
+  };
+
   const dashboardData = await fetchDashboardData();
+  const totalWinners=await fetchTotalWinners();
+  console.log(dashboardData,"totalWinners");
+  
   const users = await prisma.user.findMany();
   return (
     <>
@@ -199,7 +217,7 @@ export default async function DashboardPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">
-                      {dashboardData?.totalWinners}
+                      {totalWinners}
                     </div>
                   </CardContent>
                 </Card>

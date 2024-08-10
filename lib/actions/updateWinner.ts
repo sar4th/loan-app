@@ -14,6 +14,7 @@ export const updateWinner = async (userId: number, isWinner: boolean) => {
         winDate: new Date(),
       },
     });
+
     revalidatePath("/dashboard");
   } catch (error) {
     console.log("Error updating winner:", error);
