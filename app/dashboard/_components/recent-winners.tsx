@@ -3,8 +3,11 @@ import prisma from "@/lib/db";
 
 export const RecentWinners = async () => {
   try {
-    const recentWinners = await prisma.winners.findMany();
-    console.log(recentWinners, "recentWinners");
+    const recentWinners = await prisma.user.findMany({
+      where: {
+        iswinned: true,
+      },
+    });
 
     return (
       <div className="space-y-8">
@@ -15,11 +18,9 @@ export const RecentWinners = async () => {
               <AvatarFallback>{winner.userName}</AvatarFallback>
             </Avatar> */}
             <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">
-                {winner.userName}
-              </p>
+              <p className="text-sm font-medium leading-none">{winner.name}</p>
               <p className="text-sm text-muted-foreground">
-                {winner.winDate.toLocaleString()}
+                {winner.winDate.toLocaleString() || ""}
               </p>
             </div>
             <div className="ml-auto font-medium">

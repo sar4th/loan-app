@@ -24,12 +24,56 @@ import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { LuckyDrawButton } from "./_components/lucky-draw-button";
 import { RecentWinners } from "./_components/recent-winners";
+import Allusers from "./_components/all-users";
 
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app built using the components.",
 };
 
+// const users = [
+//   { id: 1, name: "Faris", isActive: true, iswinned: false },
+//   { id: 2, name: "Faez", isActive: true, iswinned: false },
+//   { id: 3, name: "Shebi", isActive: true, iswinned: false },
+//   { id: 4, name: "Shifas", isActive: true, iswinned: false },
+//   { id: 5, name: "Siraj", isActive: true, iswinned: false },
+//   { id: 6, name: "Murshi", isActive: true, iswinned: false },
+//   { id: 7, name: "Favas", isActive: true, iswinned: false },
+//   { id: 8, name: "Sajas", isActive: true, iswinned: false },
+//   { id: 9, name: "Habi", isActive: true, iswinned: false },
+//   { id: 10, name: "Mansoor", isActive: true, iswinned: false },
+//   { id: 11, name: "Suhail", isActive: true, iswinned: false },
+//   { id: 12, name: "Nadir", isActive: true, iswinned: false },
+//   { id: 13, name: "Hashim", isActive: true, iswinned: false },
+//   { id: 14, name: "kunjani", isActive: true, iswinned: false },
+//   { id: 15, name: "Mammu", isActive: true, iswinned: false },
+//   { id: 16, name: "suppu", isActive: true, iswinned: false },
+//   { id: 17, name: "Ashad", isActive: true, iswinned: false },
+//   { id: 18, name: "Murshi 1", isActive: true, iswinned: false },
+//   { id: 19, name: "Siraj 1", isActive: true, iswinned: false },
+//   { id: 20, name: "Murshi 2", isActive: true, iswinned: false },
+// ];
+
+// async function main() {
+//   console.log("Start seeding...");
+//   for (const user of users) {
+//     await prisma.user.upsert({
+//       where: { id: user.id },
+//       update: {},
+//       create: user,
+//     });
+//   }
+//   console.log("Seeding finished.");
+// }
+
+// main()
+//   .catch((e) => {
+//     console.error(e);
+//     process.exit(1);
+//   })
+//   .finally(async () => {
+//     await prisma.$disconnect();
+//   });
 export default async function DashboardPage() {
   const fetchDashboardData = async () => {
     try {
@@ -41,7 +85,7 @@ export default async function DashboardPage() {
     }
   };
   const dashboardData = await fetchDashboardData();
-
+  const users = await prisma.user.findMany();
   return (
     <>
       <div className="md:hidden">
@@ -63,11 +107,11 @@ export default async function DashboardPage() {
       <div className="hidden flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
-            <TeamSwitcher />
+            {/* <TeamSwitcher /> */}
             <MainNav className="mx-6" />
             <div className="ml-auto flex items-center space-x-4">
-              <Search />
-              <UserNav />
+              {/* <Search /> */}
+              {/* <UserNav /> */}
             </div>
           </div>
         </div>
@@ -188,7 +232,8 @@ export default async function DashboardPage() {
                 <Card className="col-span-4">
                   <CardHeader></CardHeader>
                   <CardContent className="pl-2">
-                    <LuckyDrawButton />
+                    <Allusers initialUsers={users} />
+                    {/* <LuckyDrawButton /> */}
                   </CardContent>
                 </Card>
                 <Card className="col-span-3">
