@@ -20,7 +20,23 @@ export const metadata: Metadata = {
 export default async function DashboardPage() {
   const constUser = cookies()
     .getAll()
-    .map((cookie) => cookie.value && JSON?.parse(cookie.value).role);
+    .map((cookie) => {
+      try {
+        if (!cookie?.value) {
+          console.warn("Cookie value is null or undefined:", cookie);
+          return null;
+        }
+
+        const parsedValue = JSON.parse(cookie.value);
+        return parsedValue?.role;
+      } catch (error) {
+        console.error("Error parsing cookie:", error);
+        return null;
+      }
+    })
+    .filter(Boolean);
+
+  console.log(constUser, "constUser");
 
   const isAdmin = constUser.some((roles) => roles.includes("admin"));
 
