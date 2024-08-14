@@ -12,14 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/lib/actions/auth";
 import { useRouter } from "next/navigation";
-
-export const description =
-  "A simple login form with email and password. The submit button says 'Sign in'.";
-
-export const iframeHeight = "600px";
-
-export const containerClassName =
-  "w-full h-screen flex items-center justify-center px-4";
+import { containerClassName } from "./loginPageMetadata";
 
 export default function LoginForm() {
   const router = useRouter();

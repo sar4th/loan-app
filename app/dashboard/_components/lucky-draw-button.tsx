@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 export function LuckyDrawButton() {
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState<any>("");
   function getRandomWinner(users: any) {
     return users[Math.floor(Math.random() * users.length)];
   }
@@ -44,7 +44,7 @@ export function LuckyDrawButton() {
       <AlertDialog open={winner !== ""}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Winner: {winner.name}</AlertDialogTitle>
+            <AlertDialogTitle>Winner: {winner?.name}</AlertDialogTitle>
             <AlertDialogDescription>
               You won the lucky draw.
             </AlertDialogDescription>

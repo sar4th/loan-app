@@ -19,7 +19,13 @@ type User = {
   iswinned: boolean;
 };
 
-const Allusers = ({ initialUsers }: { initialUsers: User[] }) => {
+const Allusers = ({
+  initialUsers,
+  isAdmin,
+}: {
+  initialUsers: User[];
+  isAdmin: boolean;
+}) => {
   const [users, setUsers] = useState(initialUsers);
 
   const handleWinnerChange = async (userId: number, isWinner: boolean) => {
@@ -53,14 +59,18 @@ const Allusers = ({ initialUsers }: { initialUsers: User[] }) => {
                 <TableRow key={user.id}>
                   <TableCell className="font-medium">{user.id}</TableCell>
                   <TableCell>{user.name}</TableCell>
-                  <TableCell>
-                    <Checkbox
-                      checked={user.iswinned}
-                      onCheckedChange={(checked) =>
-                        handleWinnerChange(user.id, checked as boolean)
-                      }
-                    />
-                  </TableCell>
+                  {isAdmin ? (
+                    <TableCell>
+                      <Checkbox
+                        checked={user.iswinned}
+                        onCheckedChange={(checked) =>
+                          handleWinnerChange(user.id, checked as boolean)
+                        }
+                      />
+                    </TableCell>
+                  ) : (
+                    <TableCell></TableCell>
+                  )}
                 </TableRow>
               ))}
             </TableBody>
