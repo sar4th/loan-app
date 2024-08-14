@@ -9,17 +9,17 @@ export const getAllUsers = async () => {
   return users;
 };
 
-export const updatedWinner = async (winner: User) => {
-  try {
-    await prisma.winners.create({
-      data: {
-        userId: winner.id,
-        winDate: new Date(),
-        userName: winner.name,
-      },
-    });
-    revalidatePath("/dashboard");
-  } catch (error) {
-    console.error("Error updating winner:", error);
-  }
-};
+// export const updatedWinner = async (winner: User) => {
+//   try {
+//     await prisma.winners.create({
+//       data: {
+//         userId: winner.id || 0,
+//         winDate: new Date(),
+//         userName: winner.name,
+//       },
+//     });
+//     revalidatePath("/dashboard");
+//   } catch (error) {
+//     console.error("Error updating winner:", error);
+//   }
+// };
