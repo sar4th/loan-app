@@ -18,6 +18,50 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
+  // const allusers = [
+  //   { id: 1, name: "Faris", isActive: true, iswinned: false },
+  //   { id: 2, name: "Faez", isActive: true, iswinned: false },
+  //   { id: 3, name: "Shebi", isActive: true, iswinned: false },
+  //   { id: 4, name: "Shifas", isActive: true, iswinned: false },
+  //   { id: 5, name: "Siraj", isActive: true, iswinned: false },
+  //   { id: 6, name: "Murshi", isActive: true, iswinned: false },
+  //   { id: 7, name: "Favas", isActive: true, iswinned: false },
+  //   { id: 8, name: "Sajas", isActive: true, iswinned: false },
+  //   { id: 9, name: "Habi", isActive: true, iswinned: false },
+  //   { id: 10, name: "Mansoor", isActive: true, iswinned: false },
+  //   { id: 11, name: "Suhail", isActive: true, iswinned: false },
+  //   { id: 12, name: "Nadir", isActive: true, iswinned: false },
+  //   { id: 13, name: "Hashim", isActive: true, iswinned: false },
+  //   { id: 14, name: "Mammu", isActive: true, iswinned: false },
+  //   { id: 15, name: "suppu", isActive: true, iswinned: false },
+  //   { id: 16, name: "Ashad", isActive: true, iswinned: false },
+  //   { id: 17, name: "Murshi 1", isActive: true, iswinned: false },
+  //   { id: 18, name: "Siraj 1", isActive: true, iswinned: false },
+  //   { id: 19, name: "Murshi 2", isActive: true, iswinned: false },
+  //   { id: 20, name: "Hashim 2", isActive: true, iswinned: false },
+  // ];
+
+  // async function main() {
+  //   console.log("Start seeding...");
+  //   for (const user of allusers) {
+  //     await prisma.user.upsert({
+  //       where: { id: user.id },
+  //       update: {},
+  //       create: user,
+  //     });
+  //   }
+  //   console.log("Seeding finished.");
+  // }
+
+  // main()
+  //   .catch((e) => {
+  //     console.error(e);
+  //     process.exit(1);
+  //   })
+  //   .finally(async () => {
+  //     await prisma.$disconnect();
+  //   });
+
   const cookieStore = cookies();
   const isAdmin = cookieStore.get("user")?.value === "admin";
 
@@ -48,6 +92,7 @@ export default async function DashboardPage() {
   const dashboardData = await fetchDashboardData();
   const totalWinners = await fetchTotalWinners();
   const users = await prisma.user.findMany();
+  console.log(users);
 
   return (
     <div className="flex flex-col min-h-screen">
