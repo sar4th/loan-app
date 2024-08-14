@@ -25,6 +25,7 @@ import { revalidatePath } from "next/cache";
 import { LuckyDrawButton } from "./_components/lucky-draw-button";
 import { RecentWinners } from "./_components/recent-winners";
 import Allusers from "./_components/all-users";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -75,6 +76,14 @@ export const metadata: Metadata = {
 //     await prisma.$disconnect();
 //   });
 export default async function DashboardPage() {
+  const constUser = cookies()
+    .getAll()
+    .map((cookie) => JSON.parse(cookie.value).role);
+
+  const isAdmin = constUser.some((roles) => roles.includes("admin"));
+
+  console.log(constUser, "cookieStore");
+
   const fetchDashboardData = async () => {
     try {
       const dashboardData = await prisma.poolDetails.findFirst();
@@ -84,8 +93,8 @@ export default async function DashboardPage() {
       return null;
     }
   };
-   // Fetch the total count of winners
-   const fetchTotalWinners = async () => {
+  // Fetch the total count of winners
+  const fetchTotalWinners = async () => {
     try {
       const totalWinners = await prisma.user.count({
         where: {
@@ -100,9 +109,9 @@ export default async function DashboardPage() {
   };
 
   const dashboardData = await fetchDashboardData();
-  const totalWinners=await fetchTotalWinners();
-  console.log(dashboardData,"totalWinners");
-  
+  const totalWinners = await fetchTotalWinners();
+  console.log(dashboardData, "totalWinners");
+
   const users = await prisma.user.findMany();
   return (
     <>
@@ -141,7 +150,11 @@ export default async function DashboardPage() {
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
             </TabsList>
-            <EditPoolDetails dashboardData={dashboardData} />
+            {isAdmin ? (
+              <EditPoolDetails dashboardData={dashboardData} />
+            ) : (
+              nulll
+            )}
 
             <TabsContent value="overview" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -216,9 +229,7 @@ export default async function DashboardPage() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">
-                      {totalWinners}
-                    </div>
+                    <div className="text-2xl font-bold">{totalWinners}</div>
                   </CardContent>
                 </Card>
                 <Card>
