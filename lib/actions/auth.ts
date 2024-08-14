@@ -14,17 +14,12 @@ export async function login(formData: FormData) {
   const user = users.find((u) => u.email === email && u.password === password);
 
   if (user) {
-    // Set a cookie with the user info (encrypted in a real app)
-    cookies().set(
-      "user",
-      JSON.stringify({ email: user.email, role: user.role }),
-      {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 60 * 60 * 24 * 7, // 1 week
-        path: "/",
-      }
-    );
+    cookies().set({
+      name: "user",
+      value: user.role,
+      httpOnly: true,
+      path: "/",
+    });
     return { success: true };
   } else {
     return { success: false, error: "Invalid credentials" };
